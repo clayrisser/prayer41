@@ -1,0 +1,11 @@
+{
+  "title": "Prayer41",
+  "backendType": "dreamfactory",
+  "backendLocation": "localhost:8080",
+  "backendApplication": "underground_connection",
+  "https": false,
+  "debugging": "true",
+  "easterEggs": "true",
+  "ajaxTimeout": "10000",
+  "toastDuration": "5000"
+}

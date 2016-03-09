@@ -1,0 +1,57 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="service-startup">
+  <template>
+
+    <!-- Get user account -->
+    <iron-ajax
+      id="userAccount"
+      url="[[userAccountUrl]]"
+      method="get"
+      params='{"app_name":"underground_connection"}'
+      headers='[[userAccountHeaders]]'
+      content-type="application/json"
+      handle-as="json"
+      on-response="userAccountResponse"
+      on-error="userAccountError"
+      last-response="{{userAccountResponseData}}"
+      last-error="{{userAccountErrorData}}"
+      timeout="[[app.settings.ajaxTimeout]]"
+    ></iron-ajax>
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'service-startup',
+
+        ready: function() {
+          app.sessionID = 'something stupid';
+          this.userAccountUrl = app.settings.api + '/rest/user/profile';
+          this.userAccountHeaders = {
+            'X-DreamFactory-Application-Name': app.settings.backendApplication,
+            'X-DreamFactory-Session-Token': app.sessionID
+          };
+          this.$.userAccount.generateRequest();
+        },
+
+        userAccountResponse: function () {
+          app.debug("success");
+          this._appLoaded();
+        },
+
+        userAccountError: function () {
+          app.debug("error");
+          this._appLoaded();
+        },
+
+        _appLoaded: function() {
+          app.loaded = true;
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

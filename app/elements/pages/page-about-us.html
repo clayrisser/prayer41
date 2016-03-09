@@ -1,0 +1,28 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="page-about-us">
+  <template>
+
+    <paper-card heading="JamRizzi Technologies">
+      <div class="card-content">There's a way to do it better . . . Find it!</div>
+      <div class="card-actions">
+        <paper-button>Vist Us</paper-button>
+      </div>
+    </paper-card>
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'page-about-us',
+
+        ready: function() {
+          app.pageTitle = 'About Us';
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

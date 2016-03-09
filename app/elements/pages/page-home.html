@@ -1,0 +1,136 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="page-home">
+  <template>
+
+    <paper-card heading="Welcome">
+      <div class="card-content">
+
+
+          This awsome app helps you test API's.
+
+          <!-- URL -->
+        <div id="url">
+            <paper-input label="URL"></paper-input>
+        </div>
+
+        <!-- method -->
+        <div id="method">
+            <paper-dropdown-menu label="Method">
+                <paper-listbox class="dropdown-content" selected="1">
+                    <paper-item>GET</paper-item>
+                    <paper-item>POST</paper-item>
+                    <paper-item>OPTIONS</paper-item>
+                    <paper-item>PUT</paper-item>
+                    <paper-item>DELETE</paper-item>
+                    <paper-item>HEAD</paper-item>
+                </paper-listbox>
+            </paper-dropdown-menu>
+        </div>
+
+        <!-- Parameters -->
+        <div id="parameters">
+            <dynamic-list
+                property-label-one="Name"
+                property-label-two="Value"
+                add-item-label="Add Parameter"
+                items="{{parameters}}"
+                on-item-added="parameterAdded"
+            ></dynamic-list>
+        </div>
+
+        <!-- Headers -->
+        <div id="headers">
+            <dynamic-list
+                property-label-one="Name"
+                property-label-two="Value"
+                add-item-label="Add Header"
+                items="{{headers}}"
+                on-item-added="headerAdded"
+            ></dynamic-list>
+        </div>
+
+        <h2>Body</h2>
+
+        <!-- content type -->
+        <div id="content-type">
+            <dropdown-input dropdown-label="Content Type" input-label="Custom Content Type" custom-item="Custom" value="{{contentType}}" vertical-align="bottom">
+                <paper-listbox class="dropdown-content" selected="1">
+                        <paper-item>application/x-www-form-urlencoded</paper-item>
+                        <paper-item>application/json</paper-item>
+                        <paper-item>multipart/form-data</paper-item>
+                        <paper-item>text/plain</paper-item>
+                        <paper-item>text/html</paper-item>
+                        <paper-item>Custom</paper-item>
+                </paper-listbox>
+            </dropdown-input>
+        </div>
+
+        <!-- handle as -->
+        <div id="handle-as">
+            <paper-dropdown-menu label="Data Type" vertical-align="bottom">
+                <paper-listbox class="dropdown-content" selected="1">
+                    <paper-item>text</paper-item>
+                    <paper-item>xml</paper-item>
+                    <paper-item>json</paper-item>
+                    <paper-item>arraybuffer</paper-item>
+                    <paper-item>blob</paper-item>
+                    <paper-item>document</paper-item>
+                </paper-listbox>
+            </paper-dropdown-menu>
+        </div>
+
+          <!-- response -->
+            <paper-textarea label="Response" value="[[response]]"></paper-textarea>
+
+
+      </div>
+      <div class="card-actions">
+        <paper-button>Get Started</paper-button>
+      </div>
+    </paper-card>
+
+    <iron-ajax
+        id="ajaxRequest"
+        url="{{url}}"
+        method="{{method}}"
+        params="{{paramaters}}"
+        headers="{{headers}}"
+        body="{{body}}"
+        content-type="{{content-type}}"
+        handle-as="{{handle-as}}"
+        on-response="ajaxRequestResponse"
+        on-error="ajaxRequestError"
+        last-response="{{ajaxRequestResponseData}}"
+        last-error="{{ajaxRequestErrorData}}"
+    ></iron-ajax>
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'page-home',
+
+        properties: {
+        },
+
+        ready: function() {
+          app.pageTitle = app.title;
+          this.parameters = [];
+            this.push('parameters', {
+                name: '',
+                value: ''
+            });
+            this.contentType = this.dropdownContentType;
+        },
+
+        parameterAdded: function() { },
+
+        headerAdded: function() { }
+      });
+    })();
+  </script>
+
+</dom-module>
